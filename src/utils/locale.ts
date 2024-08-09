@@ -13,5 +13,7 @@ export const message = {
     Book_Removed_Successfully: "Book Removed Successfully!",
     Book_Already_Issued: "Book is already issued to someone, so can't be deleted",
     Book_Not_Found: "Book Not Found",
+    Book_Borrowed_Successfully: "Book Borrowed Successfully!",
+    Book_Already_Borrowed: "Book is already borrowed by someone else",
     Something_went_wrong: "Something Went Wrong",
 };

@@ -7,7 +7,13 @@ import {
     bookIsbnValidatorMiddleware,
 } from "./../middlewares/";
 
-import { healthCheck, register, addBook, removeBook } from "./../controllers/";
+import {
+    healthCheck,
+    register,
+    addBook,
+    removeBook,
+    borrowBook,
+} from "./../controllers/";
 
 import { Role } from "./../utils";
 
@@ -36,5 +42,14 @@ export const routes = (router: Router) => {
         permissionsMiddleware(Role.LIBRARIAN),
         bookIsbnValidatorMiddleware,
         removeBook
+    );
+
+    // For Customer
+    router.patch(
+        "/api/borrow-book",
+        authenticationMiddleware,
+        permissionsMiddleware(Role.CUSTOMER),
+        bookIsbnValidatorMiddleware,
+        borrowBook
     );
 };
