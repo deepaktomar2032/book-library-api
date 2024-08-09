@@ -60,3 +60,25 @@ export const borrowBook = async (req: Request, res: Response) => {
     return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).send({ successful: false, message: message.Something_went_wrong });
   }
 };
+
+export const returnBook = async (req: Request, res: Response) => {
+  try {
+    const { isbn } = req.body as { isbn: string };
+    const result = (await findEntry(isbn)) as IBook | null;
+
+    if (result) {
+      if (result.issued) {
+        const response = (await findAndUpdate(isbn, { issued: false })) as IBook;
+
+        return res.status(HTTP_STATUS.OK).send({ successful: true, message: message.Book_Returned_Successfully, response });
+      } else {
+        return res.status(HTTP_STATUS.OK).send({ successful: true, message: message.Book_Already_In_Library });
+      }
+    } else {
+      return res.status(HTTP_STATUS.OK).send({ successful: true, message: message.Book_Not_Found });
+    }
+  } catch (error: unknown) {
+    console.log(LogErrorMessage(error));
+    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).send({ successful: false, message: message.Something_went_wrong });
+  }
+};

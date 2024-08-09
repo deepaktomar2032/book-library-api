@@ -15,5 +15,7 @@ export const message = {
     Book_Not_Found: "Book Not Found",
     Book_Borrowed_Successfully: "Book Borrowed Successfully!",
     Book_Already_Borrowed: "Book is already borrowed by someone else",
+    Book_Returned_Successfully: "Book Returned Successfully!",
+    Book_Already_In_Library: "Book is already in library",
     Something_went_wrong: "Something Went Wrong",
 };

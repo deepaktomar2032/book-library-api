@@ -13,6 +13,7 @@ import {
     addBook,
     removeBook,
     borrowBook,
+    returnBook,
 } from "./../controllers/";
 
 import { Role } from "./../utils";
@@ -51,5 +52,12 @@ export const routes = (router: Router) => {
         permissionsMiddleware(Role.CUSTOMER),
         bookIsbnValidatorMiddleware,
         borrowBook
+    );
+    router.patch(
+        "/api/return-book",
+        authenticationMiddleware,
+        permissionsMiddleware(Role.CUSTOMER),
+        bookIsbnValidatorMiddleware,
+        returnBook
     );
 };
