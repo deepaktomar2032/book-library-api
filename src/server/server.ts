@@ -3,6 +3,7 @@ import express, { Express } from "express";
 import { routes } from "./../routes/routes";
 import { LogErrorMessage } from "./../utils";
 import { ConnectToDatabase } from "./../config/db.config";
+import { SwaggerDocs } from "./../../docs/swagger/swagger";
 
 export const app: Express = express();
 export const PORT = process.env.PORT! || 3000;
@@ -25,9 +26,14 @@ const connectToDB = async () => {
     await ConnectToDatabase();
 };
 
+const createSwaggerDocs = () => {
+    SwaggerDocs(app, Number(PORT));
+};
+
 const start = async () => {
     try {
         await listenPort(Number(PORT));
+        createSwaggerDocs();
         userBodyParser();
         await connectToDB();
         await createRoutes();

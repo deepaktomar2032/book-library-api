@@ -1,0 +1,292 @@
+openapi: 3.0.0
+info:
+    title: Library Web API
+    version: 1.0.0
+    description: API Docs - Application for Library Management
+paths:
+    # healthCheck
+    /api/health:
+        get:
+            tags:
+                - Health Check
+            summary: Health Check
+            description: ""
+            responses:
+                200:
+                    description: Health Check Successful!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/healthCheckResponse"
+                400:
+                    description: Bad request
+    # registerUser
+    /api/register:
+        post:
+            tags:
+                - Register User
+            summary: Register User
+            description: ""
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                    default: "tom"
+                                password:
+                                    type: string
+                                    minimum: 8
+                                    default: "123456789"
+                                role:
+                                    type: string
+                                    default: "librarian"
+            responses:
+                200:
+                    description: User Registered Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/registerUserResponse"
+                400:
+                    description: Bad request
+
+    # addBook
+    /api/add-book:
+        post:
+            tags:
+                - Librarian
+            summary: Add a new book to the library
+            description: ""
+            security:
+                - BearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                    default: "tom"
+                                title:
+                                    type: string
+                                    default: "The Great Gatsby"
+                                author:
+                                    type: string
+                                    default: "F. Scott Fitzgerald"
+                                isbn:
+                                    type: string
+                                    default: "1234567890"
+                                year:
+                                    type: number
+                                    default: 1995
+                                issued:
+                                    type: boolean
+                                    default: false
+            responses:
+                200:
+                    description: Book Added Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/addBookResponse"
+                400:
+                    description: Bad request
+
+    # removeBook
+    /api/remove-book:
+        delete:
+            tags:
+                - Librarian
+            summary: Remove a book from the library
+            description: ""
+            security:
+                - BearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                    default: "tom"
+                                isbn:
+                                    type: string
+                                    default: "0123456789"
+                            description: "Enter ISBN"
+
+            responses:
+                200:
+                    description: Book Removed Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/removeBookResponse"
+
+    # borrowBook
+    /api/borrow-book:
+        patch:
+            tags:
+                - User
+            summary: Borrow a book from the library
+            description: ""
+            security:
+                - BearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                    default: "tom"
+                                isbn:
+                                    type: string
+                                    default: "0123456789"
+                            description: "Enter ISBN"
+
+            responses:
+                200:
+                    description: Book Borrowed Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/borrowBookResponse"
+
+    # returnBook
+    /api/return-book:
+        patch:
+            tags:
+                - User
+            summary: Return a book to the library
+            description: ""
+            security:
+                - BearerAuth: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                    default: "tom"
+                                isbn:
+                                    type: string
+                                    default: "123456789"
+                            description: "Enter ISBN"
+            responses:
+                200:
+                    description: Book Returned Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/returnBookResponse"
+
+components:
+    securitySchemes:
+        BearerAuth:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+          description: "Authorization: Bearer {token}"
+    
+    schemas:
+        healthCheckResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "Server is up and running"
+
+        registerUserResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "User Registered Successfully!"
+                _id:
+                    type: string
+                    example: "66b66026ef5eda0c66687ec1"
+                accessToken:
+                    type: string
+                    example: "long string"
+
+        addBookResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "Book Added Successfully!"
+                _id:
+                    type: string
+
+        removeBookResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "Book Removed Successfully!"
+                responses:
+                    $ref: "#/components/schemas/bookResponse"
+
+        borrowBookResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "Book Borrowed Successfully!"
+                responses:
+                    $ref: "#/components/schemas/bookResponse"
+
+        returnBookResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "Book Returned Successfully!"
+                responses:
+                    $ref: "#/components/schemas/bookResponse"
+        
+        bookResponse:
+            properties:
+                _id:
+                  type: string
+                  default: "66b66026ef5eda0c66687ec1"
+                title:
+                  type: string
+                  default: "The Great Gatsby"
+                author:
+                  type: string
+                  default: "F. Scott Fitzgerald"
+                isbn:
+                  type: string
+                  default: "1234567890"
+                year:
+                  type: number
+                  default: 1995
+                issued:
+                  type: boolean
+                  default: false
