@@ -1,14 +1,15 @@
 {
   "name": "book-library-api",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/index.ts",
     "clean": "rm -rf build",
-    "build": "npm run clean && tsc",
-    "start": "npm run build && node build/index.js"
+    "copy:yml": "cp ./docs/Swagger/swagger.yml ./build/docs/Swagger",
+    "build": "npm run clean && tsc && npm run copy:yml",
+    "start": "npm run build && node build/src/index.js",
+    "dev": "tsx watch src/index.ts"
   },
   "repository": {
     "type": "git",
