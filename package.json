@@ -1,15 +1,18 @@
 {
   "name": "book-library-api",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build",
-    "copy:yml": "cp ./docs/Swagger/swagger.yml ./build/docs/Swagger",
+    "copy:yml": "cp ./docs/swagger/swagger.yml ./build/docs/swagger",
     "build": "npm run clean && tsc && npm run copy:yml",
     "start": "npm run build && node build/src/index.js",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:restart": "npm run docker:down && npm run docker:up"
   },
   "repository": {
     "type": "git",
@@ -18,9 +21,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/deepaktomar2031/book-library-api/issues"
-  },
   "homepage": "https://github.com/deepaktomar2031/book-library-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",

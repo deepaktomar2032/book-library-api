@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  mongo_db:
+      container_name: mongo_db
+      image: mongo:6.0
+      restart: always
+      ports:
+        - 2717:27017
+      volumes:
+        - mongo_db:/data/db
+
+  book-library-api:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+        - .:/app
+    container_name: book-library-api
+    environment:
+      PORT: 3000
+      DB_CONNECTION_STRING: mongodb://mongo_db:27017/library
+      SECRET_KEY: secret
+      EXPIRATION_TIME: 5m
+    depends_on:
+      - mongo_db
+    
+volumes:
+  mongo_db:
