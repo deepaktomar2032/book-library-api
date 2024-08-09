@@ -1,12 +1,10 @@
 import { Router } from "express";
-
+import { healthCheck } from "./../controllers";
 /**
  * Handle all routes
  * @param router
  */
 export const routes = (router: Router) => {
     // Health check
-    router.get("/api/health", (req, res) => {
-        res.status(200).json({ status: "UP" });
-    });
+    router.get("/api/health", healthCheck);
 };
