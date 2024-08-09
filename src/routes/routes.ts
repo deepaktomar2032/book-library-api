@@ -4,9 +4,10 @@ import {
     authenticationMiddleware,
     permissionsMiddleware,
     addBookValidatorMiddleware,
+    bookIsbnValidatorMiddleware,
 } from "./../middlewares/";
 
-import { healthCheck, register, addBook } from "./../controllers/";
+import { healthCheck, register, addBook, removeBook } from "./../controllers/";
 
 import { Role } from "./../utils";
 
@@ -28,5 +29,12 @@ export const routes = (router: Router) => {
         permissionsMiddleware(Role.LIBRARIAN),
         addBookValidatorMiddleware,
         addBook
+    );
+    router.delete(
+        "/api/remove-book",
+        authenticationMiddleware,
+        permissionsMiddleware(Role.LIBRARIAN),
+        bookIsbnValidatorMiddleware,
+        removeBook
     );
 };

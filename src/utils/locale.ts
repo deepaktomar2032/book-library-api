@@ -10,5 +10,8 @@ export const message = {
     User_Forbidden: "User is forbidden",
     Book_Already_Exists: "Book with same ISBN already exists",
     Book_Added_Successfully: "Book Added Successfully!",
+    Book_Removed_Successfully: "Book Removed Successfully!",
+    Book_Already_Issued: "Book is already issued to someone, so can't be deleted",
+    Book_Not_Found: "Book Not Found",
     Something_went_wrong: "Something Went Wrong",
 };

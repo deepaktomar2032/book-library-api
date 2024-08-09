@@ -8,3 +8,8 @@ export const addBookValidator = Joi.object({
     year: Joi.number().required(),
     issued: Joi.boolean().required(),
 });
+
+export const bookIsbnValidator = Joi.object({
+    username: Joi.string().required(),
+    isbn: Joi.string().required(),
+});
