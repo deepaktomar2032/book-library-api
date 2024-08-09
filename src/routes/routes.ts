@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { healthCheck } from "./../controllers";
+import { registerMiddleware } from "./../middlewares";
+import { healthCheck, register } from "./../controllers";
 /**
  * Handle all routes
  * @param router
@@ -7,4 +8,7 @@ import { healthCheck } from "./../controllers";
 export const routes = (router: Router) => {
     // Health check
     router.get("/api/health", healthCheck);
+
+    // Register new user (Librarian/Customer)
+    router.post("/api/register", registerMiddleware, register);
 };

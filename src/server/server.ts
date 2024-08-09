@@ -1,6 +1,8 @@
 require("dotenv").config();
 import express, { Express } from "express";
 import { routes } from "./../routes/routes";
+import { LogErrorMessage } from "./../utils";
+import { ConnectToDatabase } from "./../config/db.config";
 
 export const app: Express = express();
 export const PORT = process.env.PORT! || 3000;
@@ -15,17 +17,22 @@ const userBodyParser = () => {
     app.use(express.json());
 };
 
-const createRoutes = () => {
+const createRoutes = async () => {
     routes(app);
+};
+
+const connectToDB = async () => {
+    await ConnectToDatabase();
 };
 
 const start = async () => {
     try {
         await listenPort(Number(PORT));
         userBodyParser();
+        await connectToDB();
         await createRoutes();
     } catch (error) {
-        console.log(error);
+        console.log(LogErrorMessage(error));
     }
 };
 
