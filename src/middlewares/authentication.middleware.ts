@@ -42,6 +42,7 @@ export const authenticationMiddleware = async (
                     .status(HTTP_STATUS.UNAUTHORIZED)
                     .send({ message: message.Token_Expired });
             req.headers.role = payload.role as string;
+            req.headers.username = payload.username as string;
             next();
         } catch (error) {
             return res

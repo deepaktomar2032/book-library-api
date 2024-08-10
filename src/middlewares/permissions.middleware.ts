@@ -21,9 +21,11 @@ export const permissionsMiddleware = (accessLevel: string) => {
                 });
             }
 
+            // Check if requesting user exists and has the required role & access level
             if (
                 result.role === req.headers.role &&
-                result.role === accessLevel
+                result.role === accessLevel &&
+                result.username === req.headers.username
             ) {
                 next();
             } else {
