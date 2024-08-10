@@ -2,15 +2,15 @@
 
 
 ## Service Specification
-● API backend for a Book Library Web Application
-● There are two types of users: 'Librarian' & 'Customer'
-    ● Librarian can add and remove books from the library
-    ● Customer can borrow and return them
-● Authentication mechanism with jwt
-● After authentication they're allowed to perform actions permitted by their access level
+- API backend for a Book Library Web Application
+- There are two types of users: 'Librarian' & 'Customer'
+    - Librarian can add and remove books from the library
+    - Customer can borrow and return them
+- Authentication mechanism with jwt
+- After authentication they're allowed to perform actions permitted by their access level
 
 
-# Repo : https://github.com/deepaktomar2031/book-library-api
+## Repo : https://github.com/deepaktomar2031/book-library-api
 ## Branch:
 - Main Branch - `master`
 
@@ -46,16 +46,19 @@ No boday required
 
 
 - POST - http://localhost:3000/api/register
+```sh
 {
     "username": "tom",
     "password": "123456789", // min 8 char
     "role": "librarian" // or "customer"
 }
+```
 - Note - Access token is valid for 5 minutes once created
 
 
 - POST - http://localhost:3000/api/add-book
-Authorization: Bearer <accessToken>
+`Authorization: Bearer <accessToken>`
+```sh
 {
     "username": "tom",
     "title": "The Great Gatsby",
@@ -64,30 +67,37 @@ Authorization: Bearer <accessToken>
     "year": 1995,
     "issued": false
 }
+```
 
 
 - DELETE - http://localhost:3000/api/remove-book
-Authorization: Bearer <accessToken>
+`Authorization: Bearer <accessToken>`
+```sh
 {
     "username": "tom",
     "isbn": "1234567890"
 }
+```
 
 
 - PATCH - http://localhost:3000/api/borrow-book
-Authorization: Bearer <accessToken>
+`Authorization: Bearer <accessToken>`
+```sh
 {
     "username": "tom",
     "isbn": "1234567890"
 }
+```
 
 
 - PATCH - http://localhost:3000/api/return-book
-Authorization: Bearer <accessToken>
+`Authorization: Bearer <accessToken>`
+```sh
 {
     "username": "tom",
     "isbn": "1234567890"
 }
+```
 
 
 # Build project
