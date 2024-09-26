@@ -1,4 +1,4 @@
-import { Role } from "./../utils";
+import { Role } from "@src/utils";
 
 export interface IUser {
     username: string;

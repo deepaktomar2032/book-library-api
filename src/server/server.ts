@@ -1,17 +1,15 @@
 require("dotenv").config();
 import express, { Express } from "express";
-import { routes } from "./../routes/routes";
-import { LogErrorMessage } from "./../utils";
-import { ConnectToDatabase } from "./../config/db.config";
-import { SwaggerDocs } from "./../../docs/swagger/swagger";
+import { routes } from "@src/routes/routes";
+import { LogErrorMessage } from "@src/utils";
+import { ConnectToDatabase } from "@src/config/db.config";
+import { SwaggerDocs } from "@docs/swagger/swagger";
 
 export const app: Express = express();
-export const PORT = process.env.PORT! || 3000;
+export const PORT = Number(process.env.PORT!) || 4000;
 
 const listenPort = (PORT: number) => {
-    app.listen(PORT, () =>
-        console.log(`Server is up & running on http://localhost:${PORT}`)
-    );
+    app.listen(PORT, () => console.log(`Server is up & running on http://localhost:${PORT}`));
 };
 
 const userBodyParser = () => {
@@ -27,14 +25,14 @@ const connectToDB = async () => {
 };
 
 const createSwaggerDocs = () => {
-    SwaggerDocs(app, Number(PORT));
+    SwaggerDocs(app, PORT);
 };
 
 const start = async () => {
     try {
-        await listenPort(Number(PORT));
-        createSwaggerDocs();
+        await listenPort(PORT);
         userBodyParser();
+        createSwaggerDocs();
         await connectToDB();
         await createRoutes();
     } catch (error) {

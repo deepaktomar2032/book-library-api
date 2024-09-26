@@ -16,51 +16,59 @@
 
 
 # Required ENV's
-- PORT=3000
+- PORT=4000
 - DB_CONNECTION_STRING=mongodb://localhost:27017/library
 - SECRET_KEY=secret
-- EXPIRATION_TIME=5m (jwt expiration time)
-
-# Run Project locally
-- clone the project
-- Install dependencies using `npm install`
-- Run the project locally in development mode using `npm run dev`
+- EXPIRATION_TIME=25m (jwt expiration time)
 
 
 # Run Project using Docker
 - clone the project
-- `npm run docker:up`
+- `npm run docker:dev` // Development mode
+- `npm run docker:prod` // Production mode
 
-- It will start the server on port 3000 & api is available to consume
-    - GET - http://localhost:3000/api/health
-    - POST - http://localhost:3000/api/register
-    - POST - http://localhost:3000/api/add-book
-    - DELETE - http://localhost:3000/api/remove-book
-    - PATCH - http://localhost:3000/api/borrow-book
-    - PATCH - http://localhost:3000/api/return-book
+- It will start the server on port 4000 & api is available to consume
+
+    - GET - http://localhost:4000/api-docs
+
+    - GET - http://localhost:4000/api/health
+    - POST - http://localhost:4000/api/register
+    - POST - http://localhost:4000/api/login
+    - POST - http://localhost:4000/api/add-book
+    - DELETE - http://localhost:4000/api/remove-book
+    - PATCH - http://localhost:4000/api/borrow-book
+    - PATCH - http://localhost:4000/api/return-book
 
 # Request body
 
-- GET - http://localhost:3000/api/health
+- GET - http://localhost:4000/api/health
 No boday required
 
 
-- POST - http://localhost:3000/api/register
+- POST - http://localhost:4000/api/register
 ```sh
 {
-    "username": "tom",
+    "username": "user1",
     "password": "123456789", // min 8 char
     "role": "librarian" // or "customer"
 }
 ```
-- Note - Access token is valid for 5 minutes once created
+
+- POST - http://localhost:4000/api/login
+```sh
+{
+    "username": "user1",
+    "password": "123456789",
+}
+```
+- Note - Access token is valid for 25 minutes once created
 
 
-- POST - http://localhost:3000/api/add-book
+- POST - http://localhost:4000/api/add-book
 `Authorization: Bearer <accessToken>`
 ```sh
 {
-    "username": "tom",
+    "username": "user1",
     "title": "The Great Gatsby",
     "author": "F. Scott Fitzgerald",
     "isbn": "1234567890",
@@ -70,42 +78,34 @@ No boday required
 ```
 
 
-- DELETE - http://localhost:3000/api/remove-book
+- DELETE - http://localhost:4000/api/remove-book
 `Authorization: Bearer <accessToken>`
 ```sh
 {
-    "username": "tom",
+    "username": "user1",
     "isbn": "1234567890"
 }
 ```
 
 
-- PATCH - http://localhost:3000/api/borrow-book
+- PATCH - http://localhost:4000/api/borrow-book
 `Authorization: Bearer <accessToken>`
 ```sh
 {
-    "username": "tom",
+    "username": "user1",
     "isbn": "1234567890"
 }
 ```
 
 
-- PATCH - http://localhost:3000/api/return-book
+- PATCH - http://localhost:4000/api/return-book
 `Authorization: Bearer <accessToken>`
 ```sh
 {
-    "username": "tom",
+    "username": "user1",
     "isbn": "1234567890"
 }
 ```
-
-
-# Build project
-- `npm run build`
-
-
-# Build & Run the project
-- `npm run start`
 
 
 # Project Structure

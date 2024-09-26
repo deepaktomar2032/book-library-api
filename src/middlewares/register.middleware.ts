@@ -1,20 +1,22 @@
 import { Request, Response } from "express";
-import { registerValidator } from "./../validators";
-import { HTTP_STATUS } from "./../utils";
-import { SALT_VALUE } from "./../constants/constants";
-import bcryptjs from "bcryptjs";
+import { findUser } from "@src/adapters";
+import { registerValidator } from "@src/validators";
+import { HTTP_STATUS, LogErrorMessage, message } from "@src/utils";
 
-export const registerMiddleware = async (
-    req: Request,
-    res: Response,
-    next: Function
-) => {
+export const registerMiddleware = async (req: Request, res: Response, next: Function) => {
     const { error } = registerValidator.validate(req.body);
-    if (error)
-        return res
-            .status(HTTP_STATUS.BAD_REQUEST)
-            .send({ successful: false, error_message: error.message });
+    if (error) return res.status(HTTP_STATUS.BAD_REQUEST).send({ successful: false, error_message: error.message });
 
-    req.body.password = await bcryptjs.hash(req.body.password, SALT_VALUE);
-    next();
+    try {
+        const { username } = req.body;
+
+        const result = await findUser({ username });
+        if (result) {
+            return res.status(HTTP_STATUS.OK).send({ successful: false, message: message.Username_Already_Exists });
+        }
+        next();
+    } catch (error: unknown) {
+        console.log(LogErrorMessage(error));
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).send({ successful: false, message: message.Something_went_wrong });
+    }
 };

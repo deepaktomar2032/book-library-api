@@ -1,5 +1,5 @@
-import { UserModel } from "./../models";
-import { IUser, Query } from "./../interfaces";
+import { UserModel } from "@src/models";
+import { IUser, Query } from "@src/interfaces";
 
 export const createNewUser = async (newuserEntry: IUser): Promise<string> => {
     const { _id } = await UserModel.create(newuserEntry);

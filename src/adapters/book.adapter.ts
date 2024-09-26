@@ -1,5 +1,5 @@
-import { BookModel } from "./../models";
-import { IBook } from "./../interfaces";
+import { BookModel } from "@src/models";
+import { IBook } from "@src/interfaces";
 
 export const findEntry = async (isbn: string): Promise<IBook | null> => {
     const existanceCheckResult = (await BookModel.findOne({
@@ -19,17 +19,11 @@ export const findAndDelete = async (isbn: string): Promise<IBook> => {
     return result;
 };
 
-export const findAndUpdate = async (
-    isbn: string,
-    newValue: Record<string, boolean>
-): Promise<IBook> => {
+export const findAndUpdate = async (isbn: string, newValue: Record<string, boolean>): Promise<IBook> => {
     const key = Object.keys(newValue)[0];
     const value = newValue[key];
 
-    const result = (await BookModel.findOneAndUpdate(
-        { isbn: isbn },
-        { $set: { [key]: value } }
-    )) as IBook;
+    const result = (await BookModel.findOneAndUpdate({ isbn: isbn }, { $set: { [key]: value } })) as IBook;
 
     return result;
 };

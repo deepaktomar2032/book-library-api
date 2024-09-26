@@ -12,6 +12,10 @@
         "resolveJsonModule": true,
         "strict": true,
         "outDir": "./build",
+        "paths": {
+            "@src/*": ["./src/*"],
+            "@docs/*": ["./docs/*"]
+        }
     },
     "include": ["src/**/*.ts", "docs/**/*.ts"],
     "exclude": ["node_modules"]

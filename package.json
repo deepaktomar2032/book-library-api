@@ -1,46 +1,51 @@
 {
-  "name": "book-library-api",
-  "version": "1.1.2",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf build",
-    "copy:yml": "cp ./docs/swagger/swagger.yml ./build/docs/swagger",
-    "build": "npm run clean && tsc && npm run copy:yml",
-    "start": "npm run build && node build/src/index.js",
-    "dev": "tsx watch src/index.ts",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "docker:restart": "npm run docker:down && npm run docker:up"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/deepaktomar2031/book-library-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://github.com/deepaktomar2031/book-library-api#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "express-validation": "^4.1.1",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.5.2",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "yamljs": "^0.3.0"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/express": "^4.17.21",
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/swagger-jsdoc": "^6.0.4",
-    "@types/swagger-ui-express": "^4.1.6",
-    "@types/yamljs": "^0.2.34",
-    "tsx": "^4.17.0",
-    "typescript": "^5.5.4"
-  }
+    "name": "book-library-api",
+    "version": "2.0.1",
+    "description": "",
+    "main": "index.js",
+    "_moduleAliases": {
+        "@src": "build/src",
+        "@docs": "build/docs"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "clean": "rm -rf build",
+        "copy:yml": "cp ./docs/swagger/swagger.yml ./build/docs/swagger",
+        "build": "npm run clean && tsc && npm run copy:yml",
+        "start": "npm run build && node build/src/index.js",
+        "dev": "tsx watch src/index.ts",
+        "docker:down": "docker compose down -v",
+        "docker:dev": "npm run docker:down && docker compose -f docker-compose.dev.yml up --build",
+        "docker:prod": "npm run docker:down && docker-compose up --build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepaktomar2031/book-library-api.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "homepage": "https://github.com/deepaktomar2031/book-library-api#readme",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-validation": "^4.1.1",
+        "jsonwebtoken": "^9.0.2",
+        "module-alias": "^2.2.3",
+        "mongoose": "^8.5.2",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
+        "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
+        "@types/express": "^4.17.21",
+        "@types/jsonwebtoken": "^9.0.6",
+        "@types/swagger-jsdoc": "^6.0.4",
+        "@types/swagger-ui-express": "^4.1.6",
+        "@types/yamljs": "^0.2.34",
+        "tsx": "^4.17.0",
+        "typescript": "^5.5.4"
+    }
 }

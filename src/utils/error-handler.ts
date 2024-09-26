@@ -1,4 +1,4 @@
-import { message } from "./../utils";
+import { message } from "@src/utils";
 
 export const LogErrorMessage = (error: unknown): string => {
     let errorMessage: string;

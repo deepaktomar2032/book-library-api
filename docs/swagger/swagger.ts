@@ -22,7 +22,7 @@ const options: swaggerJsdoc.Options = {
         ...initialOptions,
         ...swaggerYML,
     },
-    apis: [path.resolve(__dirname, "./../../src/routes/routes.ts")],
+    apis: [path.resolve(__dirname, "@src/routes/routes.ts")],
 };
 
 const SwaggerSpec = swaggerJsdoc(options);

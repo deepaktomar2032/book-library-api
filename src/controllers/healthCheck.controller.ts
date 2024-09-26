@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { HTTP_STATUS, message, LogErrorMessage } from "./../utils";
+import { HTTP_STATUS, message, LogErrorMessage } from "@src/utils";
 
 export const healthCheck = async (req: Request, res: Response) => {
     try {

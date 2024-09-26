@@ -53,6 +53,38 @@ paths:
                                 $ref: "#/components/schemas/registerUserResponse"
                 400:
                     description: Bad request
+    
+    # loginUser
+    /api/login:
+        post:
+            tags:
+                - Login
+            summary: Login
+            description: ""
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                username:
+                                    type: string
+                                    default: "tom"
+                                password:
+                                    type: string
+                                    minimum: 8
+                                    default: "123456789"
+            responses:
+                200:
+                    description: User Registered Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/loginUserResponse"
+                400:
+                    description: Bad request
+
 
     # addBook
     /api/add-book:
@@ -222,6 +254,15 @@ components:
                 _id:
                     type: string
                     example: "66b66026ef5eda0c66687ec1"
+
+        loginUserResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                message:
+                    type: string
+                    example: "User Registered Successfully!"
                 accessToken:
                     type: string
                     example: "long string"
