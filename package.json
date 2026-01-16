@@ -27,7 +27,7 @@
     "license": "ISC",
     "homepage": "https://github.com/deepaktomar2031/book-library-api#readme",
     "dependencies": {
-        "bcrypt": "^5.1.1",
+        "bcrypt": "^6.0.0",
         "dotenv": "^16.4.5",
         "express": "^4.21.2",
         "express-validation": "^4.1.1",
